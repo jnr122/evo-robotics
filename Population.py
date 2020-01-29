@@ -57,10 +57,17 @@ class Population:
     def collect_children_from(self, other):
         for i in other.p:
             if i != 0:
-                fittest = self.get_fittest(other)
-                fittest.mutate()
-                self.p[i] = copy.deepcopy(fittest)
-                                            
+                # lower chance of replacing individual
+                chance = random.random()
+                if chance > 0.6:
+                    fittest = self.get_fittest(other)
+                    fittest.mutate()
+                    self.p[i] = copy.deepcopy(fittest)
+                else:
+                    other.p[i].mutate()
+                    self.p[i] = copy.deepcopy(other.p[i])
+
+                    
     def print_str(self):
         for i in self.p:
             self.p[i].print_str()

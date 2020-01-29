@@ -13,7 +13,7 @@ class Individual:
 
       def start_evaluation(self, pb):
           # define simulation
-          self.sim = pyrosim.Simulator(play_paused=True, eval_time=1000, play_blind=pb)
+          self.sim = pyrosim.Simulator(play_paused=True, eval_time=10000, play_blind=pb)
           self.robot = Robot(self.sim, self.genome)
 
           # run sim
@@ -33,6 +33,7 @@ class Individual:
           r = random.randint(0,3)
           c = random.randint(0,7)
 
+          mutate_val = random.random()
           mutate_val = random.gauss(self.genome[r][c], math.fabs(self.genome[r][c]))
           if mutate_val > 1:
                 mutate_val = 1
