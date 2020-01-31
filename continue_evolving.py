@@ -16,7 +16,10 @@ for i in range(1, g+1):
     children.evaluate(True)
     print(str(i), end=' ')
     children.print_str()
-    parents = children
 
-    f = open('data/robot.p','wb')
-    pickle.dump(parents, f)
+    if children.p[0].fitness > parents.p[0].fitness:
+        
+        f = open('data/robot.p','wb')
+        pickle.dump(children, f)
+    
+    parents = children

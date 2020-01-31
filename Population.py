@@ -59,7 +59,7 @@ class Population:
             if i != 0:
                 # lower chance of replacing individual
                 chance = random.random()
-                if chance > 0.6:
+                if chance > 0:
                     fittest = self.get_fittest(other)
                     fittest.mutate()
                     self.p[i] = copy.deepcopy(fittest)
