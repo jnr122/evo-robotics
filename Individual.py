@@ -12,15 +12,13 @@ class Individual:
         self.ID = ID
 
     def start_evaluation(self, pb):
-        num_robots = 2
+        num_robots = 1
         # define simulation
         self.sim = pyrosim.Simulator(play_paused=True, eval_time=1000, play_blind=pb)
         self.robots = {}
 
         for i in range(num_robots):
-            self.robots[i] = Robot(self.sim, self.genome, i * 0.5)
-
-        #self.robot = Robot(self.sim, self.genome)
+            self.robots[i] = Robot(self.sim, self.genome, i*0.5)
 
         # run sim
         self.sim.start()
