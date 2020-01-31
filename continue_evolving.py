@@ -1,19 +1,22 @@
 from Individual import Individual 
 from Population import Population
+from Environments import Environments
 import pickle
+import constants as c
 
 f = open('data/robot.p','rb')
 parents = pickle.load(f)
 f.close()
 
-parents.evaluate(True)
+envs = Environments()
 
-g = 100000
 
-for i in range(1, g+1):
+parents.evaluate(envs.e, True)
+
+for i in range(1, c.num_conts+1):
     children = Population(parents.pop_size)
     children.fill_from(parents)
-    children.evaluate(True)
+    children.evaluate(envs.e, True)
     print(str(i), end=' ')
     children.print_str()
 

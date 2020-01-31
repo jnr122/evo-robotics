@@ -3,7 +3,7 @@ from pyrosim import pyrosim
 from Robot import Robot
 import math
 import numpy
-
+import constants as c
 class Individual:
 
     def __init__(self, ID):
@@ -11,18 +11,19 @@ class Individual:
         self.fitness = 0
         self.ID = ID
 
-    def start_evaluation(self, pb):
-        num_robots = 1
+    def start_evaluation(self, env, pb):
+        num_robots = c.num_robots
         # define simulation
-        self.sim = pyrosim.Simulator(play_paused=True, eval_time=1000, play_blind=pb)
+        self.sim = pyrosim.Simulator(play_paused=True, eval_time=c.eval_time, play_blind=pb)
         self.robots = {}
 
         for i in range(num_robots):
             self.robots[i] = Robot(self.sim, self.genome, i*0.5)
 
+        env.send_to(self.sim)
+
         # run sim
         self.sim.start()
-
 
     def compute_fitness(self):
         self.sim.wait_to_finish()

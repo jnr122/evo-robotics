@@ -1,6 +1,7 @@
 from Individual import Individual
 import copy
 import random
+import constants as c
 
 class Population:
     def __init__(self, pop_size):
@@ -11,15 +12,17 @@ class Population:
        for i in range(0, self.pop_size):
           self.p[i] = Individual(i)
         
-    def evaluate(self, pb):
-        for i in self.p:
-            self.p[i].start_evaluation(pb)
-        for i in self.p:
-            self.p[i].compute_fitness()
+    def evaluate(self, envs, pb):
+        for e in range(c.num_envs):
+            for i in self.p:
+                self.p[i].start_evaluation(envs[e], pb)
+            for i in self.p:
+                self.p[i].compute_fitness()
 
-    def evaluate_one(self, pb):
-        self.p[0].start_evaluation(pb)
-        self.p[0].compute_fitness()
+    def evaluate_one(self, envs, pb):
+        for e in range(c.num_envs):
+            self.p[0].start_evaluation(envs[e], pb)
+            self.p[0].compute_fitness()
 
     def mutate(self):
          for i in self.p:
