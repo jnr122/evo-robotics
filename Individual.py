@@ -7,7 +7,7 @@ import constants as c
 class Individual:
 
     def __init__(self, ID):
-        self.genome = numpy.random.random((4,8)) * 2 - 1
+        self.genome = numpy.random.random((5,8)) * 2 - 1
         self.fitness = 0
         self.ID = ID
 
@@ -28,19 +28,29 @@ class Individual:
     def compute_fitness(self):
         self.sim.wait_to_finish()
 
+        # in the future need to average robot fitnesses
         for r in self.robots:
 
+            # position
             x = self.sim.get_sensor_data(sensor_id=self.robots[r].P4, svi=0)
             y = self.sim.get_sensor_data(sensor_id=self.robots[r].P4, svi=1)
             z = self.sim.get_sensor_data(sensor_id=self.robots[r].P4, svi=2)
 
-        self.fitness = y[-1]
+            # distance from light source
+            d = self.sim.get_sensor_data(sensor_id=self.robots[r].L4, svi=0)
+
+        # for position
+        #self.fitness = y[-1]
+
+        # for light source
+        self.fitness += d[-1]
+        #print(self.fitness)
         del self.sim
 
     def mutate(self):
         # move num mutes to consts
         for i in range(1):
-            r = random.randint(0,3)
+            r = random.randint(0,4)
             c = random.randint(0,7)
 
             #mutate_val = random.random()

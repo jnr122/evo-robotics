@@ -21,7 +21,6 @@ for i in range(1, c.num_conts+1):
     children.print_str()
 
     if children.p[0].fitness > parents.p[0].fitness:
-        
         f = open('data/robot.p','wb')
         pickle.dump(children, f)
     

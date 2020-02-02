@@ -11,14 +11,29 @@ class Environment:
         self.z = c.L/2
 
         if ID == 0:
-            self.send_light_front()
+            self.send_light("front")
+        elif ID == 1:
+            self.send_light("right")
+        elif ID == 2:
+            self.send_light("back")
+        elif ID == 3:
+            self.send_light("left")
 
-        print(self.y)
-
-    def send_light_front(self):
-        self.y = c.L * 30
+    def send_light(self, dir):
+        if dir == "front":
+            self.y = c.L * 30
+        if dir == "right":
+            self.x = c.L * 30
+        if dir == "back":
+            self.y = c.L * -30
+        if dir == "left":
+            self.x = c.L * -30
 
     def send_to(self, sim):
         # body
-        self.box = sim.send_box(x=self.x, y=self.y, z=self.z, length=self.l, width=self.w, height=self.h, r=0.5,
+        self.light_source = sim.send_box(x=self.x, y=self.y, z=self.z, length=self.l, width=self.w, height=self.h, r=0.5,
                                g=0.5, b=0.5)
+
+        sim.send_light_source(body_id=self.light_source)
+
+

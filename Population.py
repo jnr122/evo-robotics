@@ -13,11 +13,15 @@ class Population:
           self.p[i] = Individual(i)
         
     def evaluate(self, envs, pb):
+        for i in range(0, self.pop_size):
+            self.p[i].fitness = 0
         for e in range(c.num_envs):
             for i in self.p:
                 self.p[i].start_evaluation(envs[e], pb)
             for i in self.p:
                 self.p[i].compute_fitness()
+        for i in range(0, self.pop_size):
+            self.p[i].fitness /= c.num_envs
 
     def evaluate_one(self, envs, pb):
         for e in range(c.num_envs):
@@ -44,8 +48,7 @@ class Population:
                 max_ind = i
         self.p[0] = copy.deepcopy(other.p[max_ind])
 
-    
-    # " tournament winnter "
+    # " tournament winner "
     def get_fittest(self, other):
         p1 = random.randint(0, self.pop_size-1)
         p2 = random.randint(0, self.pop_size-1)
