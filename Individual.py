@@ -7,7 +7,7 @@ import constants as c
 class Individual:
 
     def __init__(self, ID):
-        self.genome = numpy.random.random((5,8)) * 2 - 1
+        self.genome = numpy.random.random((6,9)) * 2 - 1
         self.fitness = 0
         self.ID = ID
 
